@@ -1,4 +1,4 @@
-export function FinanceModal({ onClose }) {
+export default function FinanceModal({ onClose }) {
   return (
     <div>
       <h2>Add Transaction</h2>

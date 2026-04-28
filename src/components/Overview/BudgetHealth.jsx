@@ -1,4 +1,4 @@
-export function BudgetHealth({ budgets }) {
+export default function BudgetHealth({ budgets }) {
   return (
     <div>
       <h2>Budget Health</h2>

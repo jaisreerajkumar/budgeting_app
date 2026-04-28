@@ -1,4 +1,4 @@
-export function MetricsCards({ income, expense, balance }) {
+export default function MetricsCards({ income, expense, balance }) {
   return (
     <div>
       <h3>Income: ${income}</h3>

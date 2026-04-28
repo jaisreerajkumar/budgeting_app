@@ -1,4 +1,4 @@
-export function TransactionsTable({ transactions }) {
+export default function TransactionsTable({ transactions }) {
   return (
     <table>
       <tbody>

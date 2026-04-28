@@ -1,4 +1,4 @@
-export const card = {
+export  const card = {
   background: "#fff",
   border: "1px solid #eee",
   borderRadius: 12,

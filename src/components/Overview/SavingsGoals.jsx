@@ -1,4 +1,4 @@
-export function SavingsGoals({ goals }) {
+export default function SavingsGoals({ goals }) {
   return (
     <div>
       <h2>Savings Goals</h2>

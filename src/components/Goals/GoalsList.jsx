@@ -1,3 +1,3 @@
-export function GoalsList({ goals }) {
+export default function GoalsList({ goals }) {
   return <div>{goals.map((g) => <p key={g.id}>{g.name}</p>)}</div>;
 }
