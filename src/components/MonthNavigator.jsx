@@ -1,15 +1,30 @@
-const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-
-export default function MonthNavigator({ curM, curY, changeMonth, onAdd }) {
+export default function MonthNavigator() {
   return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <div>
-        <button onClick={() => changeMonth(-1)}>‹</button>
-        <span>{MONTHS[curM]} {curY}</span>
-        <button onClick={() => changeMonth(1)}>›</button>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: 20,
+      }}
+    >
+      <div style={{ display: "flex", gap: 8 }}>
+        <button>‹</button>
+        <button>›</button>
       </div>
 
-      <button onClick={onAdd}>+ Add Transaction</button>
+      <button
+        style={{
+          padding: "10px 18px",
+          background: "#185FA5",
+          color: "white",
+          border: "none",
+          borderRadius: 10,
+          cursor: "pointer",
+        }}
+      >
+        + Add Transaction
+      </button>
     </div>
   );
 }

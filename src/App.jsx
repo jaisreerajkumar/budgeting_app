@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Header from "./components/Header";
 import MonthNavigator from "./components/MonthNavigator";
 import MetricsCards from "./components/MetricsCards";
@@ -10,37 +10,44 @@ import BudgetsList from "./components/Budgets/BudgetsList";
 import GoalsList from "./components/Goals/GoalsList";
 import AnalyticsCards from "./components/Analytics/AnalyticsCards";
 import SpendingByCategory from "./components/Analytics/SpendingByCategory";
-import FinanceModal from "./components/Modal/FinanceModal";
 import { INIT_STATE } from "./constants/financeConstants";
 
 export default function App() {
-  const now = new Date();
-  const [curY] = useState(now.getFullYear());
-  const [curM] = useState(now.getMonth());
   const [activeTab, setActiveTab] = useState("overview");
-  const [state, setState] = useState(INIT_STATE);
-  const [modal, setModal] = useState(null);
-  const [form, setForm] = useState({});
-  const nextId = useRef(100);
+  const [state] = useState(INIT_STATE);
+
+  const tx = state.transactions["2026-3"] || [];
+
+  const income = tx
+    .filter((t) => t.type === "income")
+    .reduce((sum, t) => sum + t.amt, 0);
+
+  const expense = tx
+    .filter((t) => t.type === "expense")
+    .reduce((sum, t) => sum + t.amt, 0);
+
+  const balance = income - expense;
 
   const tabs = ["overview", "transactions", "budgets", "goals", "analytics"];
 
-  const tx = state.transactions["2026-3"] || [];
-  const income = tx.filter((t) => t.type === "income").reduce((a, b) => a + b.amt, 0);
-  const expense = tx.filter((t) => t.type === "expense").reduce((a, b) => a + b.amt, 0);
-  const balance = income - expense;
-
   return (
-    <div style={{ maxWidth: 1100, margin: "0 auto", padding: 24 }}>
+    <div
+      style={{
+        maxWidth: 1100,
+        margin: "0 auto",
+        padding: "24px 16px",
+        fontFamily: "system-ui, sans-serif",
+        background: "#fafafa",
+        minHeight: "100vh",
+      }}
+    >
       <Header
         tabs={tabs}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        curM={curM}
-        curY={curY}
       />
 
-      <MonthNavigator onAdd={() => setModal("tx")} />
+      <MonthNavigator />
 
       <MetricsCards
         income={income}
@@ -50,8 +57,17 @@ export default function App() {
 
       {activeTab === "overview" && (
         <>
-          <BudgetHealth budgets={state.budgets} />
-          <SavingsGoals goals={state.goals} />
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 16,
+              marginTop: 20,
+            }}
+          >
+            <BudgetHealth budgets={state.budgets} />
+            <SavingsGoals goals={state.goals} />
+          </div>
           <AlertsInsights />
         </>
       )}
@@ -73,15 +89,6 @@ export default function App() {
           <AnalyticsCards />
           <SpendingByCategory transactions={tx} />
         </>
-      )}
-
-      {modal && (
-        <FinanceModal
-          modal={modal}
-          form={form}
-          setForm={setForm}
-          onClose={() => setModal(null)}
-        />
       )}
     </div>
   );
