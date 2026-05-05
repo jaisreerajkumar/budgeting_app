@@ -1,96 +1,42 @@
 import { useState } from "react";
-import Header from "./components/Header";
-import MonthNavigator from "./components/MonthNavigator";
-import MetricsCards from "./components/MetricsCards";
-import BudgetHealth from "./components/Overview/BudgetHealth";
-import SavingsGoals from "./components/Overview/SavingsGoals";
-import AlertsInsights from "./components/Overview/AlertsInsights";
-import TransactionsTable from "./components/Transactions/TransactionsTable";
-import BudgetsList from "./components/Budgets/BudgetsList";
-import GoalsList from "./components/Goals/GoalsList";
-import AnalyticsCards from "./components/Analytics/AnalyticsCards";
-import SpendingByCategory from "./components/Analytics/SpendingByCategory";
-import { INIT_STATE } from "./constants/financeConstants";
+import "./App.css";
+import { BudgetProvider } from "./context/BudgetContext";
+import Header           from "./components/Header";
+import TabBar           from "./components/TabBar";
+import MetricsBar       from "./components/MetricsBar";
+import Modal            from "./components/Modal";
+import OverviewTab      from "./components/OverviewTab";
+import TransactionsTab  from "./components/TransactionsTab";
+import BudgetsTab       from "./components/BudgetsTab";
+import GoalsTab         from "./components/GoalsTab";
+import AnalyticsTab     from "./components/AnalyticsTab";
 
-export default function App() {
-  const [activeTab, setActiveTab] = useState("overview");
-  const [state] = useState(INIT_STATE);
-
-  const tx = state.transactions["2026-3"] || [];
-
-  const income = tx
-    .filter((t) => t.type === "income")
-    .reduce((sum, t) => sum + t.amt, 0);
-
-  const expense = tx
-    .filter((t) => t.type === "expense")
-    .reduce((sum, t) => sum + t.amt, 0);
-
-  const balance = income - expense;
-
-  const tabs = ["overview", "transactions", "budgets", "goals", "analytics"];
+function Dashboard() {
+  const [tab,   setTab]   = useState("overview");
+  const [modal, setModal] = useState(null);
 
   return (
-    <div
-      style={{
-        maxWidth: 1100,
-        margin: "0 auto",
-        padding: "24px 16px",
-        fontFamily: "system-ui, sans-serif",
-        background: "#fafafa",
-        minHeight: "100vh",
-      }}
-    >
-      <Header
-        tabs={tabs}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-      />
+    <div className="app-root">
+      <Header />
+      <MetricsBar />
+      <TabBar active={tab} onChange={setTab} />
 
-      <MonthNavigator />
+      {tab === "overview"      && <OverviewTab />}
+      {tab === "transactions"  && <TransactionsTab onAdd={() => setModal("tx")} />}
+      {tab === "budgets"       && <BudgetsTab      onAdd={() => setModal("budget")} />}
+      {tab === "goals"         && <GoalsTab        onAdd={() => setModal("goal")} />}
+      {tab === "analytics"     && <AnalyticsTab />}
 
-      <MetricsCards
-        income={income}
-        expense={expense}
-        balance={balance}
-      />
-
-      {activeTab === "overview" && (
-        <>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: 16,
-              marginTop: 20,
-            }}
-          >
-            <BudgetHealth budgets={state.budgets} />
-            <SavingsGoals goals={state.goals} />
-          </div>
-          <AlertsInsights />
-        </>
-      )}
-
-      {activeTab === "transactions" && (
-        <TransactionsTable transactions={tx} />
-      )}
-
-      {activeTab === "budgets" && (
-        <BudgetsList budgets={state.budgets} />
-      )}
-
-      {activeTab === "goals" && (
-        <GoalsList goals={state.goals} />
-      )}
-
-      {activeTab === "analytics" && (
-        <>
-          <AnalyticsCards />
-          <SpendingByCategory transactions={tx} />
-        </>
-      )}
+      <Modal type={modal} onClose={() => setModal(null)} />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BudgetProvider>
+      <Dashboard />
+    </BudgetProvider>
   );
 }
 
