@@ -5,6 +5,7 @@ import Header           from "./components/Header";
 import TabBar           from "./components/TabBar";
 import MetricsBar       from "./components/MetricsBar";
 import Modal            from "./components/Modal";
+import ToastContainer   from "./components/ToastContainer";
 import OverviewTab      from "./components/OverviewTab";
 import TransactionsTab  from "./components/TransactionsTab";
 import BudgetsTab       from "./components/BudgetsTab";
@@ -21,13 +22,14 @@ function Dashboard() {
       <MetricsBar />
       <TabBar active={tab} onChange={setTab} />
 
-      {tab === "overview"      && <OverviewTab />}
-      {tab === "transactions"  && <TransactionsTab onAdd={() => setModal("tx")} />}
-      {tab === "budgets"       && <BudgetsTab      onAdd={() => setModal("budget")} />}
-      {tab === "goals"         && <GoalsTab        onAdd={() => setModal("goal")} />}
-      {tab === "analytics"     && <AnalyticsTab />}
+      {tab === "overview"     && <OverviewTab />}
+      {tab === "transactions" && <TransactionsTab onAdd={() => setModal("tx")} />}
+      {tab === "budgets"      && <BudgetsTab      onAdd={() => setModal("budget")} />}
+      {tab === "goals"        && <GoalsTab        onAdd={() => setModal("goal")} />}
+      {tab === "analytics"    && <AnalyticsTab />}
 
       <Modal type={modal} onClose={() => setModal(null)} />
+      <ToastContainer />
     </div>
   );
 }
