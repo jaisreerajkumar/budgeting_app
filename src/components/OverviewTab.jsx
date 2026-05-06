@@ -12,18 +12,18 @@ function BudgetHealth() {
     const c     = CAT_META[cat] || CAT_META.Other;
     const bar   = pct > 90 ? "var(--red)" : pct > 70 ? "var(--amber)" : c.color;
     return (
-      <div key={cat} style={{ marginBottom:13 }}>
+      <div key={cat} style={{ marginBottom: 13 }}>
         <div style={{ display:"flex", justifyContent:"space-between", marginBottom:5, alignItems:"center" }}>
           <div style={{ display:"flex", alignItems:"center", gap:7 }}>
             <div style={{ width:7, height:7, borderRadius:"50%", background:c.color }} />
-            <span style={{ fontSize:13, color:"var(--text)" }}>{cat}</span>
+            <span style={{ fontSize:13, fontWeight:600, color:"var(--text)" }}>{cat}</span>
           </div>
-          <div style={{ fontSize:11, color:"var(--text2)", display:"flex", gap:6, alignItems:"center" }}>
-            {fmt(spent)} <span style={{ color:"var(--text3)" }}>/ {fmt(limit)}</span>
-            <span style={{
-              fontSize:10, fontWeight:700, color: bar,
-              background:`${bar}22`, padding:"1px 6px", borderRadius:8,
-            }}>{pct}%</span>
+          <div style={{ fontSize:12, color:"var(--text2)", display:"flex", gap:6, alignItems:"center", fontWeight:500 }}>
+            {fmt(spent)}
+            <span style={{ color:"var(--text2)" }}>/ {fmt(limit)}</span>
+            <span style={{ fontSize:10, fontWeight:700, color:bar, background:`${bar}22`, padding:"1px 6px", borderRadius:8 }}>
+              {pct}%
+            </span>
           </div>
         </div>
         <div className="bar-track">
@@ -42,18 +42,17 @@ function GoalsList() {
   return goals.map(g => {
     const pct = Math.min(100, Math.round(g.saved / g.target * 100));
     return (
-      <div key={g.id} style={{ marginBottom:14 }}>
+      <div key={g.id} style={{ marginBottom: 14 }}>
         <div style={{ display:"flex", justifyContent:"space-between", marginBottom:5 }}>
-          <span style={{ fontSize:13, fontWeight:500, color:"var(--text)" }}>{g.name}</span>
+          <span style={{ fontSize:13, fontWeight:600, color:"var(--text)" }}>{g.name}</span>
           <span style={{ fontSize:12, color:g.color, fontWeight:700 }}>{pct}%</span>
         </div>
         <div className="bar-track" style={{ height:8 }}>
-          <div className="bar-fill" style={{ width:pct+"%", background:`linear-gradient(90deg,${g.color} 0%,${g.color}cc 100%)`, height:"100%",
-            boxShadow:`0 0 8px ${g.color}55` }} />
+          <div className="bar-fill" style={{ width:pct+"%", background:`linear-gradient(90deg,${g.color} 0%,${g.color}cc 100%)`, height:"100%", boxShadow:`0 0 8px ${g.color}55` }} />
         </div>
         <div style={{ display:"flex", justifyContent:"space-between", marginTop:4 }}>
-          <span style={{ fontSize:11, color:"var(--text3)" }}>{fmt(g.saved)} saved</span>
-          <span style={{ fontSize:11, color:"var(--text3)" }}>target: {fmt(g.target)}</span>
+          <span style={{ fontSize:11, fontWeight:500, color:"var(--text2)" }}>{fmt(g.saved)} saved</span>
+          <span style={{ fontSize:11, fontWeight:500, color:"var(--text2)" }}>target: {fmt(g.target)}</span>
         </div>
       </div>
     );
@@ -82,7 +81,7 @@ function Alerts() {
           <span style={{ fontSize:16, lineHeight:1 }}>
             {a.type==="danger"?"⚠":a.type==="warn"?"●":"✓"}
           </span>
-          <span>{a.msg}</span>
+          <span style={{ fontWeight:500 }}>{a.msg}</span>
         </div>
       ))}
     </div>
@@ -109,3 +108,4 @@ export default function OverviewTab() {
     </div>
   );
 }
+

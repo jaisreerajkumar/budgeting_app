@@ -24,10 +24,10 @@ export default function TransactionsTab({ onAdd }) {
               onClick={() => setFilter(f)}
               style={{
                 padding:"6px 14px", fontSize:12, fontWeight:600,
-                border:`1px solid ${filter===f?"var(--accent)":"var(--border2)"}`,
+                border:`1px solid ${filter===f ? "var(--accent)" : "var(--border2)"}`,
                 borderRadius:"var(--radius-sm)",
                 background: filter===f ? "rgba(79,110,247,.18)" : "transparent",
-                color: filter===f ? "var(--accent2)" : "var(--text2)",
+                color: filter===f ? "var(--accent)" : "var(--text)",
                 cursor:"pointer", transition:"all .15s", fontFamily:"inherit",
                 textTransform:"capitalize",
               }}
@@ -66,28 +66,28 @@ export default function TransactionsTab({ onAdd }) {
               </thead>
               <tbody>
                 {filtered.map(t => {
-                  const m = CAT_META[t.cat] || { bg:"var(--bg4)", tc:"var(--text2)" };
+                  const m = CAT_META[t.cat] || { bg:"var(--bg4)", tc:"var(--text)" };
                   return (
                     <tr key={t.id}>
-                      <td style={{ color:"var(--text3)", fontSize:12 }}>{t.date}</td>
-                      <td>
+                      <td style={{ fontSize:12, fontWeight:500 }}>{t.date}</td>
+                      <td style={{ fontWeight:500 }}>
                         {t.desc}
                         {t.recurring && (
-                          <span className="badge" style={{
-                            background:"rgba(79,110,247,.18)", color:"var(--accent2)", marginLeft:7
-                          }}>↻ recurring</span>
+                          <span className="badge" style={{ background:"rgba(79,110,247,.18)", color:"var(--accent)", marginLeft:7 }}>
+                            ↻ recurring
+                          </span>
                         )}
                       </td>
                       <td>
                         {t.cat && (
-                          <span className="tag" style={{ background:m.bg, color:m.tc }}>
+                          <span className="tag" style={{ background:m.bg, color:m.tc, fontWeight:700 }}>
                             {t.cat}
                           </span>
                         )}
                       </td>
                       <td>
                         <span style={{
-                          fontSize:11, fontWeight:600,
+                          fontSize:11, fontWeight:700,
                           color: t.type==="income" ? "var(--green)" : "var(--red)",
                           textTransform:"capitalize",
                         }}>{t.type}</span>
@@ -113,3 +113,4 @@ export default function TransactionsTab({ onAdd }) {
     </div>
   );
 }
+

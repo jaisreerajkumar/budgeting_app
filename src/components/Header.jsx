@@ -1,6 +1,6 @@
 import { useBudget, MONTHS, FULLMON } from "../context/BudgetContext";
-import { exportToCSV }      from "../utils/csvExport";
-import { generatePDFReport } from "../utils/pdfReport";
+import { exportToCSV }       from "../utils/csvExport";
+import { generatePDFReport }  from "../utils/pdfReport";
 
 export default function Header() {
   const {
@@ -21,10 +21,10 @@ export default function Header() {
 
   return (
     <header style={{ marginBottom: 26 }}>
-      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom: 18, flexWrap:"wrap", gap:12 }}>
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:18, flexWrap:"wrap", gap:12 }}>
 
         {/* Brand */}
-        <div style={{ display:"flex", alignItems:"center", gap: 14 }}>
+        <div style={{ display:"flex", alignItems:"center", gap:14 }}>
           <div style={{
             width:44, height:44,
             background:"linear-gradient(135deg,#4f6ef7 0%,#9c6ffd 100%)",
@@ -35,11 +35,11 @@ export default function Header() {
             <h1 style={{
               fontFamily:"'Space Grotesk',sans-serif",
               fontSize:24, fontWeight:700,
-              background:"linear-gradient(135deg,var(--text) 0%,var(--accent2) 100%)",
+              background:"linear-gradient(135deg,var(--text) 0%,var(--accent) 100%)",
               WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent",
               letterSpacing:"-.03em", lineHeight:1,
             }}>Finance Dashboard</h1>
-            <p style={{ fontSize:12, color:"var(--text3)", marginTop:3 }}>
+            <p style={{ fontSize:12, fontWeight:600, color:"var(--text2)", marginTop:3 }}>
               {FULLMON[curM]} {curY} · personal budget tracker
             </p>
           </div>
@@ -48,45 +48,35 @@ export default function Header() {
         {/* Controls */}
         <div style={{ display:"flex", alignItems:"center", gap:8, flexWrap:"wrap" }}>
 
-          {/* CSV Export */}
-          <button onClick={handleCSV} className="btn-ghost" title="Export CSV" style={{ display:"flex", alignItems:"center", gap:6, fontSize:12 }}>
+          <button onClick={handleCSV} className="btn-ghost" title="Export CSV"
+            style={{ display:"flex", alignItems:"center", gap:6, fontSize:12, fontWeight:600 }}>
             <span>⬇</span> CSV
           </button>
 
-          {/* PDF Report */}
-          <button onClick={handlePDF} className="btn-ghost" title="Monthly PDF Report" style={{ display:"flex", alignItems:"center", gap:6, fontSize:12 }}>
+          <button onClick={handlePDF} className="btn-ghost" title="Monthly PDF Report"
+            style={{ display:"flex", alignItems:"center", gap:6, fontSize:12, fontWeight:600 }}>
             <span>📄</span> PDF
           </button>
 
-          {/* Theme toggle */}
-          <button
-            onClick={toggleTheme}
-            className="btn-icon"
+          <button onClick={toggleTheme} className="btn-icon"
             title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-            style={{ fontSize:16 }}
-          >
+            style={{ fontSize:16 }}>
             {theme === "dark" ? "☀" : "🌙"}
           </button>
 
-          {/* Refresh */}
-          <button
-            onClick={refresh}
-            className={`btn-icon ${refreshing ? "active" : ""}`}
-            title="Refresh dashboard"
-          >
+          <button onClick={refresh} className={`btn-icon ${refreshing ? "active" : ""}`} title="Refresh dashboard">
             <span className={refreshing ? "spinning" : ""} style={{ fontSize:16, display:"inline-block" }}>⟳</span>
           </button>
 
-          {/* Month nav */}
           <div style={{
             display:"flex", alignItems:"center", gap:4,
-            background:"var(--bg2)", border:"1px solid var(--border)",
+            background:"var(--bg2)", border:"1px solid var(--border2)",
             borderRadius:"var(--radius-sm)", padding:"4px 6px",
           }}>
             <button onClick={() => changeMonth(-1)} className="btn-icon"
               style={{ border:"none", background:"transparent", padding:"5px 9px", fontSize:16 }}>‹</button>
             <span style={{
-              fontSize:13, fontWeight:600, minWidth:94, textAlign:"center",
+              fontSize:13, fontWeight:700, minWidth:94, textAlign:"center",
               color:"var(--text)", fontFamily:"'Space Grotesk',sans-serif",
             }}>{MONTHS[curM]} {curY}</span>
             <button onClick={() => changeMonth(1)} className="btn-icon"
@@ -95,11 +85,10 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Gradient rule */}
       <div style={{
         height:1,
         background:"linear-gradient(90deg,var(--accent) 0%,var(--purple,#9c6ffd) 50%,transparent 100%)",
-        opacity:.35,
+        opacity:.4,
       }}/>
     </header>
   );

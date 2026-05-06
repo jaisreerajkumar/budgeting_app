@@ -7,7 +7,7 @@ export default function BudgetsTab({ onAdd }) {
   return (
     <div className="fade-up">
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:14 }}>
-        <p style={{ fontSize:13, color:"var(--text3)" }}>Set monthly spending caps per category</p>
+        <p style={{ fontSize:13, fontWeight:600, color:"var(--text2)" }}>Set monthly spending caps per category</p>
         <button onClick={onAdd} className="btn-primary">+ Set budget</button>
       </div>
 
@@ -33,32 +33,27 @@ export default function BudgetsTab({ onAdd }) {
               {/* Dot + name */}
               <div style={{ display:"flex", alignItems:"center", gap:8, minWidth:110 }}>
                 <div style={{ width:10, height:10, borderRadius:"50%", background:c.color, flexShrink:0 }} />
-                <span style={{ fontSize:14, fontWeight:500, color:"var(--text)" }}>{cat}</span>
+                <span style={{ fontSize:14, fontWeight:600, color:"var(--text)" }}>{cat}</span>
               </div>
 
               {/* Bar */}
               <div style={{ flex:1 }}>
                 <div className="bar-track" style={{ height:8 }}>
-                  <div className="bar-fill" style={{
-                    width:pct+"%", background:bar,
-                    boxShadow:`0 0 6px ${bar}66`,
-                  }} />
+                  <div className="bar-fill" style={{ width:pct+"%", background:bar, boxShadow:`0 0 6px ${bar}66` }} />
                 </div>
               </div>
 
               {/* Stats */}
               <div style={{ minWidth:160, textAlign:"right", fontSize:12 }}>
-                <span style={{ color:"var(--text)", fontWeight:600 }}>{fmt(spent)}</span>
-                <span style={{ color:"var(--text3)" }}> / {fmt(limit)}</span>
-                <span style={{
-                  marginLeft:8, fontWeight:700, fontSize:11,
-                  color:bar, background:`${bar}22`,
-                  padding:"2px 7px", borderRadius:8,
-                }}>{pct}%</span>
+                <span style={{ color:"var(--text)", fontWeight:700 }}>{fmt(spent)}</span>
+                <span style={{ color:"var(--text2)", fontWeight:500 }}> / {fmt(limit)}</span>
+                <span style={{ marginLeft:8, fontWeight:700, fontSize:11, color:bar, background:`${bar}22`, padding:"2px 7px", borderRadius:8 }}>
+                  {pct}%
+                </span>
               </div>
 
               {/* Remaining */}
-              <div style={{ minWidth:80, textAlign:"right", fontSize:11, color: remain < 0 ? "var(--red)" : "var(--green)" }}>
+              <div style={{ minWidth:90, textAlign:"right", fontSize:12, fontWeight:600, color: remain < 0 ? "var(--red)" : "var(--green)" }}>
                 {remain < 0 ? `−${fmt(Math.abs(remain))} over` : `${fmt(remain)} left`}
               </div>
 

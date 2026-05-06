@@ -53,7 +53,7 @@ export default function MetricsBar() {
           <div className="metric-accent" style={{ background: m.color }} />
 
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:12, marginTop:4 }}>
-            <span style={{ fontSize:11, color:"var(--text3)", textTransform:"uppercase", letterSpacing:".07em", fontWeight:600 }}>
+            <span style={{ fontSize:11, color:"var(--text2)", textTransform:"uppercase", letterSpacing:".07em", fontWeight:700 }}>
               {m.label}
             </span>
             <div style={{
@@ -61,7 +61,7 @@ export default function MetricsBar() {
               background:`${m.glow}`,
               display:"flex", alignItems:"center", justifyContent:"center",
               fontSize:14, color:m.color,
-              border:"1px solid rgba(255,255,255,.06)",
+              border:"1px solid rgba(128,128,128,.15)",
             }}>
               {m.icon}
             </div>
@@ -78,7 +78,7 @@ export default function MetricsBar() {
           >
             {income === 0 && expense === 0 ? "—" : m.value}
           </div>
-          <div style={{ fontSize:11, color:"var(--text3)" }}>
+          <div style={{ fontSize:11, color:"var(--text2)", fontWeight:500 }}>
             {income === 0 && expense === 0 ? "No data this month" : m.sub}
           </div>
         </div>
@@ -86,3 +86,4 @@ export default function MetricsBar() {
     </div>
   );
 }
+
